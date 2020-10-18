@@ -22,13 +22,13 @@ def login():
 #   Params:         Expects Tenant name and cookies (obtained from login) to be supplied as parameters
 #   Returns:        The response object resulting from the Create tenant API call
 ###
-def createTenant(tnt_name, apic_cookies):
+def createTenant(tnt_name, tnt_desc, apic_cookies):
     endpoint = "/api/mo/uni/{}.json".format(tnt_name)
     url = "https://{}{}".format(hostname, endpoint)
     req_body = {
         "fvTenant": {
             "attributes": {
-                "descr": "The Support Organization Tenant",
+                "descr": tnt_desc,
                 "dn": "uni/{}".format(tnt_name),
                 "name": "Test",
                 "rn": tnt_name,
@@ -43,15 +43,16 @@ def createTenant(tnt_name, apic_cookies):
 #   MAIN FUNCTION
 ##################
 def main():
-    tenant_name = "tn-Test"         ## Declaring Tenant Name
-
+    tenant_name = "tn-Test"         ## Tenant Name
+    tenant_desc = "The Support Organization Tenant"         ## Tenant Description
+    
     login_response = login()        ## Calling the Login function
     print("LOGIN RESPONSE")
     print(login_response.text)      ## Printing the Login Response Body
 
 
     apic_cookies = login_response.cookies       ## Parsing the cookies from Login response
-    create_tn_response = createTenant(tenant_name, apic_cookies)        ## Calling the Create Tenant function
+    create_tn_response = createTenant(tenant_name, tenant_desc, apic_cookies)        ## Calling the Create Tenant function
     print("\nCREATE TENANT RESPONSE")
     print(create_tn_response.text)      ## Printing the Create Tenant Response Body
 
