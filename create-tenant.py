@@ -39,7 +39,9 @@ def createTenant(tnt_name, apic_cookies):
     return requests.post(url, data=json.dumps(req_body), cookies=apic_cookies, verify=False)
 
 
-
+##################
+#   MAIN FUNCTION
+##################
 def main():
     tenant_name = "tn-Test"         ## Declaring Tenant Name
 
