@@ -45,15 +45,17 @@ def createTenant(tnt_name, tnt_desc, apic_cookies):
 def main():
     tenant_name = "tn-Test"         ## Tenant Name
     tenant_desc = "The Support Organization Tenant"         ## Tenant Description
-    
+
     login_response = login()        ## Calling the Login function
     print("LOGIN RESPONSE")
+    print(login_response.status_code)      ## Printing the Login Response Status Code
     print(login_response.text)      ## Printing the Login Response Body
 
 
     apic_cookies = login_response.cookies       ## Parsing the cookies from Login response
     create_tn_response = createTenant(tenant_name, tenant_desc, apic_cookies)        ## Calling the Create Tenant function
     print("\nCREATE TENANT RESPONSE")
+    print(create_tn_response.status_code)      ## Printing the Create Tenant Response Status Code
     print(create_tn_response.text)      ## Printing the Create Tenant Response Body
 
 if __name__ == "__main__":
